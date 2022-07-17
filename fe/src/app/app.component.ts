@@ -21,4 +21,28 @@ export class AppComponent {
       },
     });
   }
+
+  moveCube(move: string) {
+    this.api.call('moveCube', { move: move }).subscribe({
+      next: () => {
+        this.getCube();
+      },
+    });
+  }
+
+  randCube() {
+    this.api.call('randCube').subscribe({
+      next: () => {
+        this.getCube();
+      },
+    });
+  }
+
+  resetCube() {
+    this.api.call('resetCube').subscribe({
+      next: () => {
+        this.getCube();
+      },
+    });
+  }
 }
