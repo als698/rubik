@@ -17,9 +17,17 @@ export class ApiService {
 
   call(action: string, argument?: any) {
     let data = {};
+    if (!sessionStorage.getItem('session')) {
+      this.http.post(this.url + 'getSess', {}, this.headers).subscribe({
+        next: (session: any) => {
+          sessionStorage.setItem('session', session);
+        },
+      });
+    }
+    Object.assign(data, { session: sessionStorage.getItem('session') });
 
     if (argument !== undefined) {
-      argument = Object.assign(data, argument);
+      Object.assign(data, argument);
     }
 
     return this.http.post(
